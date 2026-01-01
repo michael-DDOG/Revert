@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc:*)",
+      "Bash(npm install:*)",
+      "Bash(cat:*)",
+      "Bash(grep:*)",
+      "Bash(sort:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx expo install react-native-web react-dom @expo/metro-runtime)",
+      "Bash(npm run lint)",
+      "Bash(eas init:*)"
+    ]
+  }
+}
