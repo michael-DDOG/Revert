@@ -12,6 +12,10 @@ export { NamesOfAllahScreen } from './NamesOfAllahScreen';
 export { PrayerGuideScreen } from './PrayerGuideScreen';
 export { QuranBasicsScreen } from './QuranBasicsScreen';
 
+// Quran Screens
+export { QuranScreen } from './QuranScreen';
+export { SurahReaderScreen } from './SurahReaderScreen';
+
 // Settings Screens
 export { NotificationSettingsScreen } from './NotificationSettingsScreen';
 export { PrayerSettingsScreen } from './PrayerSettingsScreen';

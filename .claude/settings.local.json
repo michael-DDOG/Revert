@@ -9,7 +9,10 @@
       "Bash(npx tsc:*)",
       "Bash(npx expo install react-native-web react-dom @expo/metro-runtime)",
       "Bash(npm run lint)",
-      "Bash(eas init:*)"
+      "Bash(eas init:*)",
+      "WebSearch",
+      "WebFetch(domain:deenin.com)",
+      "Bash(git add:*)"
     ]
   }
 }

@@ -100,3 +100,18 @@ export {
   handleErrorBoundary,
   withErrorTracking,
 } from './errorTracking';
+
+// Quran Service
+export {
+  fetchSurahList,
+  fetchSurah,
+  fetchAyah,
+  searchQuran,
+  getAyahAudioUrl,
+  clearQuranCache,
+  TRANSLATIONS,
+  RECITERS as QURAN_RECITERS,
+  JUZ_INFO,
+} from './quranService';
+
+export type { TranslationKey, ReciterKey as QuranReciterKey } from './quranService';

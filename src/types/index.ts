@@ -233,6 +233,83 @@ export interface UserPreferences {
 }
 
 // ============================================
+// QURAN TYPES
+// ============================================
+
+export interface Surah {
+  number: number;
+  name: string;
+  englishName: string;
+  englishNameTranslation: string;
+  numberOfAyahs: number;
+  revelationType: 'Meccan' | 'Medinan';
+}
+
+export interface Ayah {
+  number: number;
+  numberInSurah: number;
+  text: string;
+  juz: number;
+  page: number;
+}
+
+export interface AyahWithTranslation extends Ayah {
+  translation: string;
+  transliteration?: string;
+  audioUrl?: string;
+}
+
+export interface SurahFull extends Surah {
+  ayahs: AyahWithTranslation[];
+}
+
+export interface QuranBookmark {
+  id: string;
+  surahNumber: number;
+  surahName: string;
+  ayahNumber: number;
+  ayahText: string;
+  translation: string;
+  createdAt: string;
+  note?: string;
+}
+
+export interface QuranReadingProgress {
+  lastSurahNumber: number;
+  lastAyahNumber: number;
+  lastReadAt: string;
+  completedSurahs: number[];
+  totalAyahsRead: number;
+}
+
+export interface QuranState {
+  // Reading progress
+  readingProgress: QuranReadingProgress;
+  bookmarks: QuranBookmark[];
+
+  // Settings
+  showTransliteration: boolean;
+  showArabic: boolean;
+  arabicFontSize: number;
+  translationFontSize: number;
+  selectedReciter: string;
+  selectedTranslation: string;
+
+  // Actions
+  updateReadingProgress: (surahNumber: number, ayahNumber: number) => void;
+  markSurahComplete: (surahNumber: number) => void;
+  addBookmark: (bookmark: Omit<QuranBookmark, 'id' | 'createdAt'>) => void;
+  removeBookmark: (id: string) => void;
+  setShowTransliteration: (show: boolean) => void;
+  setShowArabic: (show: boolean) => void;
+  setArabicFontSize: (size: number) => void;
+  setTranslationFontSize: (size: number) => void;
+  setSelectedReciter: (reciter: string) => void;
+  setSelectedTranslation: (translation: string) => void;
+  resetQuranProgress: () => void;
+}
+
+// ============================================
 // API RESPONSE TYPES
 // ============================================
 
@@ -256,5 +333,31 @@ export interface ApiPrayerTimesResponse {
         year: string;
       };
     };
+  };
+}
+
+export interface ApiQuranSurahListResponse {
+  code: number;
+  status: string;
+  data: Surah[];
+}
+
+export interface ApiQuranSurahResponse {
+  code: number;
+  status: string;
+  data: {
+    number: number;
+    name: string;
+    englishName: string;
+    englishNameTranslation: string;
+    revelationType: string;
+    numberOfAyahs: number;
+    ayahs: {
+      number: number;
+      text: string;
+      numberInSurah: number;
+      juz: number;
+      page: number;
+    }[];
   };
 }

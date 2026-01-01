@@ -49,10 +49,10 @@ const categories: LearnCategory[] = [
     color: '#3b82f6',
   },
   {
-    id: 'quran',
+    id: 'quranBasics',
     title: 'Quran Basics',
     subtitle: 'Essential surahs',
-    icon: '📖',
+    icon: '📚',
     screen: 'QuranBasics',
     color: '#8b5cf6',
   },
@@ -77,6 +77,29 @@ export const LearnScreen: React.FC = () => {
           Build your knowledge at your own pace
         </Text>
       </View>
+
+      {/* Quran Feature Card */}
+      <TouchableOpacity
+        style={styles.quranCard}
+        onPress={() => handleCategoryPress('Quran')}
+        activeOpacity={0.9}
+      >
+        <View style={styles.quranCardContent}>
+          <View style={styles.quranCardLeft}>
+            <Text style={styles.quranCardLabel}>THE HOLY QURAN</Text>
+            <Text style={styles.quranCardTitle}>Read the Complete Quran</Text>
+            <Text style={styles.quranCardSubtitle}>
+              114 Surahs with Arabic text, translations, and audio recitation
+            </Text>
+          </View>
+          <View style={styles.quranCardIcon}>
+            <Text style={styles.quranEmoji}>📖</Text>
+          </View>
+        </View>
+        <View style={styles.quranCardFooter}>
+          <Text style={styles.quranCardAction}>Start Reading →</Text>
+        </View>
+      </TouchableOpacity>
 
       <View style={styles.categoriesGrid}>
         {categories.map((category) => (
@@ -185,6 +208,61 @@ const styles = StyleSheet.create({
   headerSubtitle: {
     fontSize: theme.fontSize.md,
     color: theme.colors.textSecondary,
+  },
+  quranCard: {
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.borderRadius.xl,
+    padding: theme.spacing.lg,
+    marginBottom: theme.spacing.xl,
+  },
+  quranCardContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  quranCardLeft: {
+    flex: 1,
+    paddingRight: theme.spacing.md,
+  },
+  quranCardLabel: {
+    fontSize: theme.fontSize.xs,
+    fontWeight: theme.fontWeight.bold,
+    color: 'rgba(255, 255, 255, 0.7)',
+    letterSpacing: 1,
+    marginBottom: theme.spacing.xs,
+  },
+  quranCardTitle: {
+    fontSize: theme.fontSize.xl,
+    fontWeight: theme.fontWeight.bold,
+    color: '#fff',
+    marginBottom: theme.spacing.xs,
+  },
+  quranCardSubtitle: {
+    fontSize: theme.fontSize.sm,
+    color: 'rgba(255, 255, 255, 0.85)',
+    lineHeight: 20,
+  },
+  quranCardIcon: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  quranEmoji: {
+    fontSize: 32,
+  },
+  quranCardFooter: {
+    marginTop: theme.spacing.md,
+    paddingTop: theme.spacing.md,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  quranCardAction: {
+    fontSize: theme.fontSize.md,
+    fontWeight: theme.fontWeight.semibold,
+    color: '#fff',
   },
   categoriesGrid: {
     flexDirection: 'row',

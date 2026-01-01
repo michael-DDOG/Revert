@@ -14,6 +14,8 @@ import { DuaLibraryScreen } from '../screens/DuaLibraryScreen';
 import { NamesOfAllahScreen } from '../screens/NamesOfAllahScreen';
 import { PrayerGuideScreen } from '../screens/PrayerGuideScreen';
 import { QuranBasicsScreen } from '../screens/QuranBasicsScreen';
+import { QuranScreen } from '../screens/QuranScreen';
+import { SurahReaderScreen } from '../screens/SurahReaderScreen';
 import { NotificationSettingsScreen } from '../screens/NotificationSettingsScreen';
 import { PrayerSettingsScreen } from '../screens/PrayerSettingsScreen';
 import { AboutScreen } from '../screens/AboutScreen';
@@ -21,6 +23,7 @@ import { AboutScreen } from '../screens/AboutScreen';
 const Tab = createBottomTabNavigator();
 const JourneyStack = createNativeStackNavigator();
 const LearnStack = createNativeStackNavigator();
+const QuranStack = createNativeStackNavigator();
 const ProfileStack = createNativeStackNavigator();
 
 // Tab Icon Component
@@ -61,7 +64,7 @@ const JourneyStackNavigator = () => (
   </JourneyStack.Navigator>
 );
 
-// Learn Stack (includes all learn sub-screens)
+// Learn Stack (includes all learn sub-screens and Quran)
 const LearnStackNavigator = () => (
   <LearnStack.Navigator
     screenOptions={{
@@ -79,6 +82,19 @@ const LearnStackNavigator = () => (
       name="LearnHome"
       component={LearnScreen}
       options={{ headerShown: false }}
+    />
+    <LearnStack.Screen
+      name="Quran"
+      component={QuranScreen}
+      options={{ headerTitle: 'Holy Quran' }}
+    />
+    <LearnStack.Screen
+      name="SurahReader"
+      component={SurahReaderScreen}
+      options={{
+        headerTitle: '',
+        headerBackTitle: 'Quran',
+      }}
     />
     <LearnStack.Screen
       name="DuaLibrary"
@@ -101,6 +117,36 @@ const LearnStackNavigator = () => (
       options={{ headerTitle: 'Quran Basics' }}
     />
   </LearnStack.Navigator>
+);
+
+// Quran Stack (Full Quran reader - for dedicated Quran tab)
+const QuranStackNavigator = () => (
+  <QuranStack.Navigator
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: theme.colors.background,
+      },
+      headerTintColor: theme.colors.text,
+      headerTitleStyle: {
+        fontWeight: '600',
+      },
+      headerShadowVisible: false,
+    }}
+  >
+    <QuranStack.Screen
+      name="QuranHome"
+      component={QuranScreen}
+      options={{ headerShown: false }}
+    />
+    <QuranStack.Screen
+      name="SurahReader"
+      component={SurahReaderScreen}
+      options={{
+        headerTitle: '',
+        headerBackTitle: 'Quran',
+      }}
+    />
+  </QuranStack.Navigator>
 );
 
 // Profile Stack (includes settings screens)
