@@ -36,6 +36,14 @@ export const REVENUECAT_CONFIG = {
   },
 } as const;
 
+// Anthropic (Claude) API Configuration
+export const ANTHROPIC_CONFIG = {
+  apiKey: Constants.expoConfig?.extra?.anthropicApiKey || '',
+  model: 'claude-3-haiku-20240307', // Fast and cost-effective for chat
+  maxTokens: 1024,
+  dailyFreeQueries: 20, // Rate limit for free users
+} as const;
+
 // App Limits & Thresholds
 export const APP_LIMITS = {
   // Trial

@@ -115,3 +115,14 @@ export {
 } from './quranService';
 
 export type { TranslationKey, ReciterKey as QuranReciterKey } from './quranService';
+
+// AI Chat Service
+export {
+  sendChatMessage,
+  createUserMessage,
+  createAssistantMessage,
+  generateMessageId,
+  QUICK_QUESTIONS,
+} from './aiChatService';
+
+export type { ChatMessage, ChatResponse } from './aiChatService';

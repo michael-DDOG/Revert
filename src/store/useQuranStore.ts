@@ -21,8 +21,10 @@ export const useQuranStore = create<QuranState>()(
       bookmarks: [],
       showTransliteration: true,
       showArabic: true,
+      showWordByWord: false,
       arabicFontSize: 28,
       translationFontSize: 16,
+      wordByWordFontSize: 14,
       selectedReciter: 'ar.alafasy',
       selectedTranslation: 'en.sahih',
 
@@ -80,12 +82,20 @@ export const useQuranStore = create<QuranState>()(
         set({ showArabic: show });
       },
 
+      setShowWordByWord: (show: boolean) => {
+        set({ showWordByWord: show });
+      },
+
       setArabicFontSize: (size: number) => {
         set({ arabicFontSize: Math.max(18, Math.min(40, size)) });
       },
 
       setTranslationFontSize: (size: number) => {
         set({ translationFontSize: Math.max(12, Math.min(24, size)) });
+      },
+
+      setWordByWordFontSize: (size: number) => {
+        set({ wordByWordFontSize: Math.max(10, Math.min(20, size)) });
       },
 
       setSelectedReciter: (reciter: string) => {
@@ -111,8 +121,10 @@ export const useQuranStore = create<QuranState>()(
         bookmarks: state.bookmarks,
         showTransliteration: state.showTransliteration,
         showArabic: state.showArabic,
+        showWordByWord: state.showWordByWord,
         arabicFontSize: state.arabicFontSize,
         translationFontSize: state.translationFontSize,
+        wordByWordFontSize: state.wordByWordFontSize,
         selectedReciter: state.selectedReciter,
         selectedTranslation: state.selectedTranslation,
       }),
@@ -128,8 +140,10 @@ export const useQuranSettings = () =>
   useQuranStore((state) => ({
     showTransliteration: state.showTransliteration,
     showArabic: state.showArabic,
+    showWordByWord: state.showWordByWord,
     arabicFontSize: state.arabicFontSize,
     translationFontSize: state.translationFontSize,
+    wordByWordFontSize: state.wordByWordFontSize,
     selectedReciter: state.selectedReciter,
     selectedTranslation: state.selectedTranslation,
   }));

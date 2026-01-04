@@ -12,7 +12,11 @@
       "Bash(eas init:*)",
       "WebSearch",
       "WebFetch(domain:deenin.com)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd full Quran reader with 114 surahs, translations, and audio\n\nFeatures:\n- QuranScreen: Browse all 114 surahs with search and filter\n- SurahReaderScreen: Read verses with Arabic text and translations\n- Audio playback from multiple reciters \\(Alafasy, Sudais, etc.\\)\n- Multiple translation options \\(Sahih International, Yusuf Ali, etc.\\)\n- Bookmarking system for favorite verses\n- Reading progress tracking\n- Customizable font sizes\n- Offline caching for faster loading\n\nUses free AlQuran.cloud API - no API key required.\n\n🤖 Generated with [Claude Code]\\(https://claude.ai/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)",
+      "WebFetch(domain:api-docs.quran.foundation)",
+      "Bash(find:*)"
     ]
   }
 }

@@ -30,3 +30,6 @@ export {
 // Toast for user feedback
 export { Toast, ToastProvider, useToast } from './Toast';
 export type { ToastType } from './Toast';
+
+// Quran Components
+export { default as WordByWordView } from './WordByWordView';

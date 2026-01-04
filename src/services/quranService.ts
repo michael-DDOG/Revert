@@ -5,24 +5,64 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   Surah,
   SurahFull,
+  SurahWithWords,
   AyahWithTranslation,
+  AyahWithWords,
+  QuranWord,
   ApiQuranSurahListResponse,
   ApiQuranSurahResponse,
 } from '../types';
 
+// AlQuran.cloud API (for basic surah/ayah data)
 const API_BASE_URL = 'https://api.alquran.cloud/v1';
+
+// Quran.com API v4 (for word-by-word data)
+const QURAN_COM_API_URL = 'https://api.quran.com/api/v4';
 const CACHE_KEY_SURAHS = 'quran-surahs-list';
 const CACHE_KEY_SURAH_PREFIX = 'quran-surah-';
+const CACHE_KEY_WORDS_PREFIX = 'quran-words-';
+const CACHE_KEY_TRANSLATIONS_LIST = 'quran-translations-list';
 const CACHE_DURATION_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+const CACHE_DURATION_LONG_MS = 30 * 24 * 60 * 60 * 1000; // 30 days for translations list
 
-// Available translations
+// Available translations (from AlQuran.cloud)
 export const TRANSLATIONS = {
+  // English
   'en.sahih': 'Sahih International',
   'en.asad': 'Muhammad Asad',
   'en.pickthall': 'Pickthall',
   'en.yusufali': 'Yusuf Ali',
   'en.hilali': 'Hilali & Khan',
   'en.ahmedali': 'Ahmed Ali',
+  'en.arberry': 'A.J. Arberry',
+  'en.maududi': 'Maududi',
+  'en.daryabadi': 'Daryabadi',
+  'en.shakir': 'Shakir',
+  'en.sarwar': 'Muhammad Sarwar',
+  'en.qaribullah': 'Qaribullah',
+  'en.wahiduddin': 'Wahiduddin Khan',
+  // Urdu
+  'ur.jalandhry': 'Fateh Muhammad Jalandhry (Urdu)',
+  'ur.ahmedali': 'Ahmed Ali (Urdu)',
+  'ur.maududi': 'Maududi (Urdu)',
+  // Indonesian
+  'id.indonesian': 'Indonesian Ministry',
+  // French
+  'fr.hamidullah': 'Muhammad Hamidullah (French)',
+  // German
+  'de.aburida': 'Abu Rida (German)',
+  'de.bubenheim': 'Bubenheim (German)',
+  // Spanish
+  'es.cortes': 'Julio Cortes (Spanish)',
+  // Turkish
+  'tr.diyanet': 'Diyanet (Turkish)',
+  'tr.ozturk': 'Ozturk (Turkish)',
+  // Russian
+  'ru.kuliev': 'Kuliev (Russian)',
+  // Bengali
+  'bn.bengali': 'Bengali Translation',
+  // Malay
+  'ms.basmeih': 'Basmeih (Malay)',
 } as const;
 
 // Available reciters (for audio)
@@ -297,6 +337,177 @@ export const clearQuranCache = async (): Promise<void> => {
 /**
  * Get Juz information
  */
+// ============================================
+// QURAN.COM API v4 - Word-by-Word & Translations
+// ============================================
+
+/**
+ * Fetch available translations from Quran.com API
+ */
+export interface TranslationResource {
+  id: number;
+  name: string;
+  authorName: string;
+  languageName: string;
+  slug: string;
+}
+
+export const fetchAvailableTranslations = async (): Promise<TranslationResource[]> => {
+  const cached = await getCached<TranslationResource[]>(CACHE_KEY_TRANSLATIONS_LIST);
+  if (cached) {
+    return cached;
+  }
+
+  try {
+    const response = await fetch(`${QURAN_COM_API_URL}/resources/translations`);
+    const data = await response.json();
+
+    if (data.translations) {
+      const translations: TranslationResource[] = data.translations.map((t: {
+        id: number;
+        name: string;
+        author_name: string;
+        language_name: string;
+        slug: string;
+      }) => ({
+        id: t.id,
+        name: t.name,
+        authorName: t.author_name,
+        languageName: t.language_name,
+        slug: t.slug,
+      }));
+
+      await setCache(CACHE_KEY_TRANSLATIONS_LIST, translations);
+      return translations;
+    }
+
+    return [];
+  } catch (error) {
+    console.error('Error fetching translations list:', error);
+    return [];
+  }
+};
+
+/**
+ * Fetch a surah with word-by-word data from Quran.com API
+ */
+export const fetchSurahWithWords = async (
+  surahNumber: number,
+  translationId: number = 131 // Default: Sahih International
+): Promise<SurahWithWords> => {
+  const cacheKey = `${CACHE_KEY_WORDS_PREFIX}${surahNumber}-${translationId}`;
+
+  // Check cache first
+  const cached = await getCached<SurahWithWords>(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
+  try {
+    // Fetch verses with words and translation
+    const response = await fetch(
+      `${QURAN_COM_API_URL}/verses/by_chapter/${surahNumber}?` +
+      `language=en&words=true&translations=${translationId}&` +
+      `word_fields=text_uthmani,text_simple,audio_url&` +
+      `translation_fields=text&per_page=300`
+    );
+    const data = await response.json();
+
+    if (data.verses) {
+      // Also fetch surah info
+      const surahResponse = await fetch(`${QURAN_COM_API_URL}/chapters/${surahNumber}`);
+      const surahData = await surahResponse.json();
+      const chapter = surahData.chapter;
+
+      const ayahs: AyahWithWords[] = data.verses.map((verse: {
+        id: number;
+        verse_number: number;
+        verse_key: string;
+        text_uthmani: string;
+        juz_number: number;
+        page_number: number;
+        translations: Array<{ text: string }>;
+        words: Array<{
+          id: number;
+          position: number;
+          text_uthmani: string;
+          text?: string;
+          translation: { text: string; language_name: string };
+          transliteration: { text: string };
+          audio_url?: string;
+        }>;
+      }) => {
+        // Filter out end markers (position 0 words that are just markers)
+        const words: QuranWord[] = verse.words
+          .filter((w) => w.text_uthmani && w.text_uthmani.trim() !== '')
+          .map((w) => ({
+            id: w.id,
+            position: w.position,
+            text_uthmani: w.text_uthmani,
+            text_simple: w.text,
+            translation: w.translation || { text: '', language_name: 'en' },
+            transliteration: w.transliteration || { text: '' },
+            audio_url: w.audio_url,
+          }));
+
+        return {
+          number: verse.id,
+          numberInSurah: verse.verse_number,
+          text: verse.text_uthmani,
+          juz: verse.juz_number,
+          page: verse.page_number,
+          translation: verse.translations?.[0]?.text || '',
+          audioUrl: `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${verse.id}.mp3`,
+          words,
+        };
+      });
+
+      const surahWithWords: SurahWithWords = {
+        number: chapter.id,
+        name: chapter.name_arabic,
+        englishName: chapter.name_simple,
+        englishNameTranslation: chapter.translated_name?.name || chapter.name_simple,
+        numberOfAyahs: chapter.verses_count,
+        revelationType: chapter.revelation_place === 'makkah' ? 'Meccan' : 'Medinan',
+        ayahs,
+      };
+
+      // Cache the result
+      await setCache(cacheKey, surahWithWords);
+      return surahWithWords;
+    }
+
+    throw new Error('Failed to fetch surah with words');
+  } catch (error) {
+    console.error('Error fetching surah with words:', error);
+    throw error;
+  }
+};
+
+/**
+ * Get word audio URL
+ */
+export const getWordAudioUrl = (wordAudioPath: string): string => {
+  if (wordAudioPath.startsWith('http')) {
+    return wordAudioPath;
+  }
+  return `https://audio.qurancdn.com/${wordAudioPath}`;
+};
+
+// Popular translations for quick access
+export const POPULAR_TRANSLATIONS = [
+  { id: 131, name: 'Sahih International', language: 'English' },
+  { id: 20, name: 'Saheeh International', language: 'English' },
+  { id: 85, name: 'Abdul Haleem', language: 'English' },
+  { id: 84, name: 'Mufti Taqi Usmani', language: 'English' },
+  { id: 95, name: 'Tafheem ul Quran', language: 'Urdu' },
+  { id: 234, name: 'Indonesian Ministry', language: 'Indonesian' },
+  { id: 161, name: 'Hamza Roberto Piccardo', language: 'Italian' },
+  { id: 79, name: 'Muhammad Hamidullah', language: 'French' },
+  { id: 77, name: 'Frank Bubenheim', language: 'German' },
+  { id: 133, name: 'Ahmed Raza Khan', language: 'Hindi' },
+];
+
 export const JUZ_INFO = [
   { number: 1, name: 'Alif Lam Mim', startSurah: 1, startAyah: 1 },
   { number: 2, name: 'Sayaqool', startSurah: 2, startAyah: 142 },
@@ -337,7 +548,11 @@ export default {
   searchQuran,
   getAyahAudioUrl,
   clearQuranCache,
+  fetchSurahWithWords,
+  fetchAvailableTranslations,
+  getWordAudioUrl,
   TRANSLATIONS,
   RECITERS,
   JUZ_INFO,
+  POPULAR_TRANSLATIONS,
 };

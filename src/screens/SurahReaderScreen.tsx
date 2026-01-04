@@ -15,9 +15,10 @@ import {
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { Audio } from 'expo-av';
 import { theme } from '../constants/theme';
-import { fetchSurah, TRANSLATIONS, RECITERS, TranslationKey, ReciterKey } from '../services/quranService';
+import { fetchSurah, fetchSurahWithWords, TRANSLATIONS, RECITERS, TranslationKey, ReciterKey } from '../services/quranService';
 import { useQuranStore } from '../store/useQuranStore';
-import { SurahFull, AyahWithTranslation } from '../types';
+import { SurahFull, AyahWithTranslation, SurahWithWords, QuranWord } from '../types';
+import { WordByWordView } from '../components';
 
 type RouteParams = {
   surahNumber: number;
@@ -35,13 +36,17 @@ export const SurahReaderScreen: React.FC = () => {
     addBookmark,
     bookmarks,
     showArabic,
+    showWordByWord,
     arabicFontSize,
     translationFontSize,
+    wordByWordFontSize,
     selectedReciter,
     selectedTranslation,
     setShowArabic,
+    setShowWordByWord,
     setArabicFontSize,
     setTranslationFontSize,
+    setWordByWordFontSize,
     setSelectedReciter,
     setSelectedTranslation,
   } = useQuranStore();
@@ -53,6 +58,8 @@ export const SurahReaderScreen: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [playingAyahNumber, setPlayingAyahNumber] = useState<number | null>(null);
   const [showSettings, setShowSettings] = useState(false);
+  const [wordData, setWordData] = useState<Map<number, QuranWord[]>>(new Map());
+  const [loadingWords, setLoadingWords] = useState(false);
 
   const soundRef = useRef<Audio.Sound | null>(null);
   const flatListRef = useRef<FlatList>(null);
@@ -83,9 +90,40 @@ export const SurahReaderScreen: React.FC = () => {
     }
   }, [surahNumber, selectedTranslation, selectedReciter, fadeAnim]);
 
+  // Load word-by-word data when enabled
+  const loadWordData = useCallback(async () => {
+    if (!showWordByWord || loadingWords) return;
+
+    try {
+      setLoadingWords(true);
+      const surahWithWords = await fetchSurahWithWords(surahNumber);
+
+      // Create a map from ayah number to words
+      const wordsMap = new Map<number, QuranWord[]>();
+      surahWithWords.ayahs.forEach((ayah) => {
+        if (ayah.words && ayah.words.length > 0) {
+          wordsMap.set(ayah.numberInSurah, ayah.words);
+        }
+      });
+
+      setWordData(wordsMap);
+    } catch (err) {
+      console.error('Error loading word-by-word data:', err);
+    } finally {
+      setLoadingWords(false);
+    }
+  }, [surahNumber, showWordByWord, loadingWords]);
+
   useEffect(() => {
     loadSurah();
   }, [loadSurah]);
+
+  // Load word data when word-by-word is enabled
+  useEffect(() => {
+    if (showWordByWord && surah && wordData.size === 0) {
+      loadWordData();
+    }
+  }, [showWordByWord, surah, wordData.size, loadWordData]);
 
   useEffect(() => {
     // Scroll to starting ayah if specified
@@ -186,6 +224,7 @@ export const SurahReaderScreen: React.FC = () => {
     if (newSurahNumber >= 1 && newSurahNumber <= 114) {
       (navigation as any).setParams({ surahNumber: newSurahNumber, startAyah: 1 });
       setSurah(null);
+      setWordData(new Map());
       setLoading(true);
     }
   };
@@ -316,6 +355,22 @@ export const SurahReaderScreen: React.FC = () => {
           </Text>
         )}
 
+        {/* Word-by-Word View */}
+        {showWordByWord && wordData.has(item.numberInSurah) && (
+          <View style={styles.wordByWordContainer}>
+            {loadingWords ? (
+              <ActivityIndicator size="small" color={theme.colors.primary} />
+            ) : (
+              <WordByWordView
+                words={wordData.get(item.numberInSurah) || []}
+                arabicFontSize={wordByWordFontSize + 8}
+                transliterationFontSize={wordByWordFontSize}
+                translationFontSize={wordByWordFontSize - 2}
+              />
+            )}
+          </View>
+        )}
+
         {/* Translation */}
         <Text
           style={[
@@ -379,6 +434,28 @@ export const SurahReaderScreen: React.FC = () => {
               </TouchableOpacity>
             </View>
 
+            {/* Show Word-by-Word */}
+            <View style={styles.settingRow}>
+              <View style={styles.settingLabelContainer}>
+                <Text style={styles.settingLabel}>Word-by-Word</Text>
+                <Text style={styles.settingHint}>Tap each word to learn</Text>
+              </View>
+              <TouchableOpacity
+                style={[
+                  styles.toggleButton,
+                  showWordByWord && styles.toggleButtonActive,
+                ]}
+                onPress={() => {
+                  setShowWordByWord(!showWordByWord);
+                  if (!showWordByWord && wordData.size === 0) {
+                    loadWordData();
+                  }
+                }}
+              >
+                <Text style={styles.toggleText}>{showWordByWord ? 'ON' : 'OFF'}</Text>
+              </TouchableOpacity>
+            </View>
+
             {/* Arabic Font Size */}
             <View style={styles.settingSection}>
               <Text style={styles.settingLabel}>Arabic Font Size: {arabicFontSize}</Text>
@@ -431,10 +508,67 @@ export const SurahReaderScreen: React.FC = () => {
               </View>
             </View>
 
-            {/* Translation Selection */}
+            {/* Word-by-Word Font Size */}
+            {showWordByWord && (
+              <View style={styles.settingSection}>
+                <Text style={styles.settingLabel}>
+                  Word-by-Word Size: {wordByWordFontSize}
+                </Text>
+                <View style={styles.sliderRow}>
+                  <TouchableOpacity
+                    style={styles.sizeButton}
+                    onPress={() => setWordByWordFontSize(wordByWordFontSize - 1)}
+                  >
+                    <Text style={styles.sizeButtonText}>A-</Text>
+                  </TouchableOpacity>
+                  <View style={styles.sizePreview}>
+                    <Text style={[styles.previewTranslation, { fontSize: wordByWordFontSize }]}>
+                      Word size
+                    </Text>
+                  </View>
+                  <TouchableOpacity
+                    style={styles.sizeButton}
+                    onPress={() => setWordByWordFontSize(wordByWordFontSize + 1)}
+                  >
+                    <Text style={styles.sizeButtonText}>A+</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+
+            {/* Translation Selection - Grouped by Language */}
             <View style={styles.settingSection}>
-              <Text style={styles.settingLabel}>Translation</Text>
-              {Object.entries(TRANSLATIONS).map(([key, name]) => (
+              <Text style={styles.settingLabel}>Translation (27 languages)</Text>
+
+              {/* English Translations */}
+              <Text style={styles.languageHeader}>English</Text>
+              {Object.entries(TRANSLATIONS)
+                .filter(([key]) => key.startsWith('en.'))
+                .map(([key, name]) => (
+                <TouchableOpacity
+                  key={key}
+                  style={[
+                    styles.optionButton,
+                    selectedTranslation === key && styles.optionButtonActive,
+                  ]}
+                  onPress={() => setSelectedTranslation(key)}
+                >
+                  <Text
+                    style={[
+                      styles.optionText,
+                      selectedTranslation === key && styles.optionTextActive,
+                    ]}
+                  >
+                    {name}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+
+              {/* Other Languages */}
+              <Text style={styles.languageHeader}>Other Languages</Text>
+              {Object.entries(TRANSLATIONS)
+                .filter(([key]) => !key.startsWith('en.'))
+                .map(([key, name]) => (
                 <TouchableOpacity
                   key={key}
                   style={[
@@ -756,6 +890,12 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.md,
     fontFamily: 'System',
   },
+  wordByWordContainer: {
+    marginVertical: theme.spacing.sm,
+    backgroundColor: 'rgba(30, 58, 95, 0.2)',
+    borderRadius: theme.borderRadius.md,
+    overflow: 'hidden',
+  },
   ayahTranslation: {
     color: theme.colors.textSecondary,
     lineHeight: 26,
@@ -828,6 +968,23 @@ const styles = StyleSheet.create({
     color: theme.colors.text,
     fontWeight: theme.fontWeight.medium,
     marginBottom: theme.spacing.sm,
+  },
+  settingLabelContainer: {
+    flex: 1,
+  },
+  settingHint: {
+    fontSize: theme.fontSize.xs,
+    color: theme.colors.textMuted,
+    marginTop: 2,
+  },
+  languageHeader: {
+    fontSize: theme.fontSize.sm,
+    fontWeight: theme.fontWeight.semibold,
+    color: theme.colors.primary,
+    marginTop: theme.spacing.md,
+    marginBottom: theme.spacing.xs,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
   toggleButton: {
     backgroundColor: theme.colors.card,

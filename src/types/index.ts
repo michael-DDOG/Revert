@@ -263,6 +263,30 @@ export interface SurahFull extends Surah {
   ayahs: AyahWithTranslation[];
 }
 
+// Word-by-Word Types (from Quran.com API)
+export interface QuranWord {
+  id: number;
+  position: number;
+  text_uthmani: string;
+  text_simple?: string;
+  translation: {
+    text: string;
+    language_name: string;
+  };
+  transliteration: {
+    text: string;
+  };
+  audio_url?: string;
+}
+
+export interface AyahWithWords extends AyahWithTranslation {
+  words: QuranWord[];
+}
+
+export interface SurahWithWords extends Surah {
+  ayahs: AyahWithWords[];
+}
+
 export interface QuranBookmark {
   id: string;
   surahNumber: number;
@@ -290,8 +314,10 @@ export interface QuranState {
   // Settings
   showTransliteration: boolean;
   showArabic: boolean;
+  showWordByWord: boolean;
   arabicFontSize: number;
   translationFontSize: number;
+  wordByWordFontSize: number;
   selectedReciter: string;
   selectedTranslation: string;
 
@@ -302,8 +328,10 @@ export interface QuranState {
   removeBookmark: (id: string) => void;
   setShowTransliteration: (show: boolean) => void;
   setShowArabic: (show: boolean) => void;
+  setShowWordByWord: (show: boolean) => void;
   setArabicFontSize: (size: number) => void;
   setTranslationFontSize: (size: number) => void;
+  setWordByWordFontSize: (size: number) => void;
   setSelectedReciter: (reciter: string) => void;
   setSelectedTranslation: (translation: string) => void;
   resetQuranProgress: () => void;

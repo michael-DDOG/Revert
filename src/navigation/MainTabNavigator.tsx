@@ -16,6 +16,7 @@ import { PrayerGuideScreen } from '../screens/PrayerGuideScreen';
 import { QuranBasicsScreen } from '../screens/QuranBasicsScreen';
 import { QuranScreen } from '../screens/QuranScreen';
 import { SurahReaderScreen } from '../screens/SurahReaderScreen';
+import { AskImamScreen } from '../screens/AskImamScreen';
 import { NotificationSettingsScreen } from '../screens/NotificationSettingsScreen';
 import { PrayerSettingsScreen } from '../screens/PrayerSettingsScreen';
 import { AboutScreen } from '../screens/AboutScreen';
@@ -115,6 +116,11 @@ const LearnStackNavigator = () => (
       name="QuranBasics"
       component={QuranBasicsScreen}
       options={{ headerTitle: 'Quran Basics' }}
+    />
+    <LearnStack.Screen
+      name="AskImam"
+      component={AskImamScreen}
+      options={{ headerTitle: 'Ask an Islamic Guide' }}
     />
   </LearnStack.Navigator>
 );

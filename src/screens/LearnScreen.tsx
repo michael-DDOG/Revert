@@ -101,6 +101,29 @@ export const LearnScreen: React.FC = () => {
         </View>
       </TouchableOpacity>
 
+      {/* AI Islamic Guide Card */}
+      <TouchableOpacity
+        style={styles.aiChatCard}
+        onPress={() => handleCategoryPress('AskImam')}
+        activeOpacity={0.9}
+      >
+        <View style={styles.quranCardContent}>
+          <View style={styles.quranCardLeft}>
+            <Text style={styles.aiChatLabel}>AI ISLAMIC GUIDE</Text>
+            <Text style={styles.aiChatTitle}>Ask Any Question</Text>
+            <Text style={styles.aiChatSubtitle}>
+              Get instant answers about Islam, prayer, Quran, and life as a new Muslim
+            </Text>
+          </View>
+          <View style={styles.aiChatIcon}>
+            <Text style={styles.quranEmoji}>💬</Text>
+          </View>
+        </View>
+        <View style={styles.aiChatFooter}>
+          <Text style={styles.aiChatAction}>Start Chatting →</Text>
+        </View>
+      </TouchableOpacity>
+
       <View style={styles.categoriesGrid}>
         {categories.map((category) => (
           <TouchableOpacity
@@ -263,6 +286,51 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.md,
     fontWeight: theme.fontWeight.semibold,
     color: '#fff',
+  },
+  aiChatCard: {
+    backgroundColor: '#1e3a5f', // Deep blue for AI chat
+    borderRadius: theme.borderRadius.xl,
+    padding: theme.spacing.lg,
+    marginBottom: theme.spacing.xl,
+    borderWidth: 1,
+    borderColor: 'rgba(59, 130, 246, 0.3)',
+  },
+  aiChatLabel: {
+    fontSize: theme.fontSize.xs,
+    fontWeight: theme.fontWeight.bold,
+    color: 'rgba(147, 197, 253, 0.9)',
+    letterSpacing: 1,
+    marginBottom: theme.spacing.xs,
+  },
+  aiChatTitle: {
+    fontSize: theme.fontSize.xl,
+    fontWeight: theme.fontWeight.bold,
+    color: '#fff',
+    marginBottom: theme.spacing.xs,
+  },
+  aiChatSubtitle: {
+    fontSize: theme.fontSize.sm,
+    color: 'rgba(255, 255, 255, 0.85)',
+    lineHeight: 20,
+  },
+  aiChatIcon: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: 'rgba(59, 130, 246, 0.3)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  aiChatFooter: {
+    marginTop: theme.spacing.md,
+    paddingTop: theme.spacing.md,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(59, 130, 246, 0.3)',
+  },
+  aiChatAction: {
+    fontSize: theme.fontSize.md,
+    fontWeight: theme.fontWeight.semibold,
+    color: '#93c5fd',
   },
   categoriesGrid: {
     flexDirection: 'row',
