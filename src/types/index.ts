@@ -14,12 +14,32 @@ export type {
 // JOURNEY & CONTENT TYPES
 // ============================================
 
+export interface DayResource {
+  type: 'mosque_finder' | 'website' | 'video' | 'article' | 'app';
+  title: string;
+  url: string;
+  description?: string;
+}
+
+export interface DayAudio {
+  surahNumber?: number;
+  surahName?: string;
+  audioUrl: string;
+  description?: string;
+}
+
 export interface Day {
   id: number;
   title: string;
   description: string;
   guidance: string;
   reflection: string;
+  // Optional enhanced fields
+  audio?: DayAudio[];           // Audio clips for Arabic learning
+  resources?: DayResource[];     // External links (mosques, communities, etc.)
+  isRamadanRelevant?: boolean;   // Flag for Ramadan-related content
+  isPrayerRelated?: boolean;     // Flag for prayer-related content
+  tags?: string[];               // For filtering/searching
 }
 
 export interface Track {

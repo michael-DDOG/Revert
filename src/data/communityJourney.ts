@@ -27,6 +27,27 @@ The Prophet ﷺ said: "I was sent only to perfect noble character."
 
 Your character is your most visible form of dawah.`,
     reflection: 'If someone had to describe your character, what would they say?',
+    resources: [
+      {
+        type: 'mosque_finder',
+        title: 'Find a Mosque Near You',
+        url: 'https://www.islamicfinder.org/world/',
+        description: 'Connect with your local Muslim community',
+      },
+      {
+        type: 'website',
+        title: 'New Muslim Academy',
+        url: 'https://newmuslimacademy.org/',
+        description: 'Free courses for new Muslims',
+      },
+      {
+        type: 'app',
+        title: 'Muslim Pro Community',
+        url: 'https://www.muslimpro.com/',
+        description: 'Connect with Muslims worldwide',
+      },
+    ],
+    tags: ['community', 'character', 'akhlaq'],
   },
   {
     id: 122,
@@ -489,6 +510,14 @@ BENEFITS:
 • Community bonds strengthen
 • You meet fellow Muslims regularly`,
     reflection: 'How often do you pray in congregation? How could you increase it?',
+    resources: [
+      {
+        type: 'mosque_finder',
+        title: 'Find a Mosque Near You',
+        url: 'https://www.islamicfinder.org/world/',
+        description: 'Locate mosques for congregational prayer',
+      },
+    ],
   },
   {
     id: 137,
@@ -520,6 +549,20 @@ THE KHUTBAH:
 
 Missing three Fridays without excuse puts a seal on the heart.`,
     reflection: 'How do you currently observe Jumu\'ah? What could improve?',
+    resources: [
+      {
+        type: 'mosque_finder',
+        title: 'Find Jumu\'ah Near You',
+        url: 'https://www.islamicfinder.org/world/',
+        description: 'Find mosques with Friday prayer times',
+      },
+      {
+        type: 'website',
+        title: 'Surah Al-Kahf',
+        url: 'https://quran.com/18',
+        description: 'Read Surah Al-Kahf - recommended on Fridays',
+      },
+    ],
   },
   {
     id: 138,
@@ -591,6 +634,20 @@ ETIQUETTE OF SEEKING KNOWLEDGE:
 
 "Whoever follows a path seeking knowledge, Allah will make easy for him the path to Paradise."`,
     reflection: 'What area of Islamic knowledge do you want to develop?',
+    resources: [
+      {
+        type: 'website',
+        title: 'SeekersGuidance',
+        url: 'https://seekersguidance.org/',
+        description: 'Free Islamic courses and Q&A',
+      },
+      {
+        type: 'website',
+        title: 'Yaqeen Institute',
+        url: 'https://yaqeeninstitute.org/',
+        description: 'Research-based Islamic content',
+      },
+    ],
   },
   {
     id: 140,
@@ -734,6 +791,20 @@ START OR JOIN:
 
 The Prophet ﷺ said: "Help your brother whether he is the oppressor or oppressed." (Help the oppressor by stopping him.)`,
     reflection: 'How can you help the next person who takes shahada?',
+    resources: [
+      {
+        type: 'website',
+        title: 'New Muslim Academy',
+        url: 'https://newmuslimacademy.org/',
+        description: 'Share this resource with new Muslims',
+      },
+      {
+        type: 'website',
+        title: 'WhyIslam New Muslim Care',
+        url: 'https://www.whyislam.org/new-muslim-care/',
+        description: 'Support network for new Muslims',
+      },
+    ],
   },
   {
     id: 144,
@@ -774,6 +845,20 @@ DUE DILIGENCE:
 
 Your consistent $10/month can provide clean water or support an orphan.`,
     reflection: 'Which causes speak to your heart? How can you contribute?',
+    resources: [
+      {
+        type: 'website',
+        title: 'Islamic Relief',
+        url: 'https://www.islamic-relief.org/',
+        description: 'Global humanitarian relief organization',
+      },
+      {
+        type: 'website',
+        title: 'LaunchGood',
+        url: 'https://www.launchgood.com/',
+        description: 'Crowdfunding for Muslim causes',
+      },
+    ],
   },
   {
     id: 145,
@@ -805,6 +890,20 @@ GETTING STARTED:
 
 "Allah has given every person a skill. Let each person give from what Allah has given them."`,
     reflection: 'What unique skill can you offer your Muslim community?',
+    resources: [
+      {
+        type: 'website',
+        title: 'ICNA Relief Volunteer',
+        url: 'https://www.icnarelief.org/volunteer/',
+        description: 'Volunteer with Islamic relief organizations',
+      },
+      {
+        type: 'mosque_finder',
+        title: 'Find Local Mosques',
+        url: 'https://www.islamicfinder.org/world/',
+        description: 'Connect with local Islamic centers to volunteer',
+      },
+    ],
   },
   {
     id: 146,

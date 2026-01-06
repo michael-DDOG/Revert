@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -19,7 +19,11 @@ import { foundationJourney } from '../data/foundationJourney';
 import { prayerJourney } from '../data/prayerJourney';
 import { quranJourney } from '../data/quranJourney';
 import { livingIslamJourney } from '../data/livingIslamJourney';
+import { deepeningFaithJourney } from '../data/deepeningFaithJourney';
 import { Track } from '../types';
+
+// Ramadan days from deepeningFaithJourney (Days 191-200)
+const RAMADAN_DAYS = deepeningFaithJourney.filter(day => day.isRamadanRelevant);
 
 const TRACKS: Track[] = [
   {
@@ -81,6 +85,7 @@ const getDaysForTrack = (trackId: string) => {
 export const JourneyScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp<JourneyStackParamList>>();
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const [showRamadanMode, setShowRamadanMode] = useState(false);
 
   const { currentDay, completedDays, level } = useProgressStore();
 
@@ -127,6 +132,74 @@ export const JourneyScreen: React.FC = () => {
         <Text style={styles.subtitle}>
           {completedDays.length} days completed • Currently on Day {currentDay}
         </Text>
+
+        {/* Ramadan Quick Start Card */}
+        <TouchableOpacity
+          style={styles.ramadanCard}
+          onPress={() => setShowRamadanMode(!showRamadanMode)}
+          activeOpacity={0.8}
+        >
+          <View style={styles.ramadanHeader}>
+            <View style={styles.ramadanIconContainer}>
+              <Text style={styles.ramadanIcon}>🌙</Text>
+            </View>
+            <View style={styles.ramadanInfo}>
+              <Text style={styles.ramadanTitle}>Ramadan Quick Start</Text>
+              <Text style={styles.ramadanSubtitle}>
+                {showRamadanMode
+                  ? 'Tap to return to regular journey'
+                  : 'Starting Ramadan? Access fasting guides now'}
+              </Text>
+            </View>
+            <Text style={styles.ramadanArrow}>{showRamadanMode ? '▼' : '▶'}</Text>
+          </View>
+        </TouchableOpacity>
+
+        {/* Ramadan Days Grid */}
+        {showRamadanMode && (
+          <View style={styles.ramadanSection}>
+            <Text style={styles.ramadanSectionTitle}>
+              Essential Ramadan Content
+            </Text>
+            <Text style={styles.ramadanSectionDescription}>
+              10 days of guidance covering fasting, Tarawih, Quran, charity, and Eid
+            </Text>
+            <View style={styles.ramadanDaysGrid}>
+              {RAMADAN_DAYS.map((day, index) => {
+                const isCompleted = completedDays.includes(day.id);
+                const dayNumber = index + 1;
+
+                return (
+                  <TouchableOpacity
+                    key={day.id}
+                    style={[
+                      styles.ramadanDayItem,
+                      isCompleted && styles.ramadanDayCompleted,
+                    ]}
+                    onPress={() => handleDayPress(day.id)}
+                    activeOpacity={0.7}
+                  >
+                    <Text style={[
+                      styles.ramadanDayNumber,
+                      isCompleted && styles.ramadanDayNumberCompleted,
+                    ]}>
+                      {isCompleted ? '✓' : dayNumber}
+                    </Text>
+                    <Text
+                      style={[
+                        styles.ramadanDayTitle,
+                        isCompleted && styles.ramadanDayTitleCompleted,
+                      ]}
+                      numberOfLines={2}
+                    >
+                      {day.title.replace(/^Day \d+: /, '')}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          </View>
+        )}
 
         {/* Tracks */}
         {TRACKS.map((track) => {
@@ -212,7 +285,7 @@ export const JourneyScreen: React.FC = () => {
         <View style={styles.comingSoon}>
           <Text style={styles.comingSoonTitle}>Your Journey Continues</Text>
           <Text style={styles.comingSoonText}>
-            Seasonal content, Ramadan specials, and advanced spiritual development tracks coming soon.
+            More tracks unlocking as you progress: Community (Days 121-180), Deepening Faith (Days 181-270), and Advanced Spirituality (Days 271-360+).
           </Text>
         </View>
 
@@ -379,6 +452,113 @@ const styles = StyleSheet.create({
   },
   bottomPadding: {
     height: 40,
+  },
+  // Ramadan Quick Start styles
+  ramadanCard: {
+    backgroundColor: '#1a3a2a',
+    borderRadius: theme.borderRadius.lg,
+    padding: theme.spacing.md,
+    marginBottom: theme.spacing.lg,
+    borderWidth: 1,
+    borderColor: '#2d5a4a',
+  },
+  ramadanHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  ramadanIconContainer: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#2d5a4a',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: theme.spacing.md,
+  },
+  ramadanIcon: {
+    fontSize: 24,
+  },
+  ramadanInfo: {
+    flex: 1,
+  },
+  ramadanTitle: {
+    fontSize: theme.fontSize.lg,
+    fontWeight: theme.fontWeight.semibold,
+    color: '#7fdbba',
+    marginBottom: 2,
+  },
+  ramadanSubtitle: {
+    fontSize: theme.fontSize.sm,
+    color: '#5fb89a',
+  },
+  ramadanArrow: {
+    fontSize: 14,
+    color: '#7fdbba',
+    marginLeft: theme.spacing.sm,
+  },
+  ramadanSection: {
+    backgroundColor: '#152a22',
+    borderRadius: theme.borderRadius.md,
+    padding: theme.spacing.md,
+    marginBottom: theme.spacing.lg,
+    marginTop: -theme.spacing.sm,
+  },
+  ramadanSectionTitle: {
+    fontSize: theme.fontSize.md,
+    fontWeight: theme.fontWeight.semibold,
+    color: '#7fdbba',
+    marginBottom: theme.spacing.xs,
+  },
+  ramadanSectionDescription: {
+    fontSize: theme.fontSize.sm,
+    color: '#5fb89a',
+    marginBottom: theme.spacing.md,
+  },
+  ramadanDaysGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+  },
+  ramadanDayItem: {
+    width: '47%',
+    backgroundColor: '#1a3a2a',
+    borderRadius: theme.borderRadius.md,
+    padding: theme.spacing.sm,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#2d5a4a',
+  },
+  ramadanDayCompleted: {
+    backgroundColor: '#2d5a4a',
+    borderColor: '#7fdbba',
+  },
+  ramadanDayNumber: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: '#2d5a4a',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    lineHeight: 28,
+    fontSize: theme.fontSize.sm,
+    fontWeight: theme.fontWeight.semibold,
+    color: '#7fdbba',
+    marginRight: theme.spacing.sm,
+  },
+  ramadanDayNumberCompleted: {
+    backgroundColor: '#7fdbba',
+    color: '#152a22',
+  },
+  ramadanDayTitle: {
+    flex: 1,
+    fontSize: theme.fontSize.xs,
+    color: '#a8d8c8',
+    lineHeight: 16,
+  },
+  ramadanDayTitleCompleted: {
+    color: '#d4f0e4',
   },
 });
 

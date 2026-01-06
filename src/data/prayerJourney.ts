@@ -23,6 +23,20 @@ Our goals:
 
 Let's begin.`,
     reflection: 'What excites you most about establishing prayer?',
+    resources: [
+      {
+        type: 'app',
+        title: 'Pillars - Learn to Pray',
+        url: 'https://pillarsapp.com/',
+        description: 'Step-by-step prayer learning app',
+      },
+      {
+        type: 'website',
+        title: 'Prayer Guide - IslamicFinder',
+        url: 'https://www.islamicfinder.org/prayer/',
+        description: 'Detailed prayer instructions with images',
+      },
+    ],
   },
   {
     id: 32,
@@ -102,6 +116,14 @@ Allah responds: "This is for My servant, and My servant will have what they ask"
 
 When you recite Al-Fatiha, Allah is responding to you. Every single time.`,
     reflection: 'How does knowing Allah responds change your recitation?',
+    audio: [
+      {
+        surahNumber: 1,
+        surahName: 'Al-Fatiha',
+        audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3',
+        description: 'Listen to Al-Fatiha and imagine Allah responding to each verse',
+      },
+    ],
   },
   {
     id: 35,
@@ -133,6 +155,16 @@ This surah declares:
 
 Memorize this surah. Recite it in your prayers.`,
     reflection: 'Practice reciting Al-Ikhlas 10 times.',
+    audio: [
+      {
+        surahNumber: 112,
+        surahName: 'Al-Ikhlas',
+        audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6222.mp3',
+        description: 'Listen to Al-Ikhlas - repeat after the reciter',
+      },
+    ],
+    isPrayerRelated: true,
+    tags: ['quran', 'memorization', 'tawhid'],
   },
   {
     id: 36,
@@ -162,6 +194,15 @@ Wa min sharri hasidin idha hasad
 
 The Prophet ﷺ recited this and Al-Nas every night before sleep.`,
     reflection: 'What does seeking refuge in Allah feel like?',
+    audio: [
+      {
+        surahNumber: 113,
+        surahName: 'Al-Falaq',
+        audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6227.mp3',
+        description: 'Listen to Al-Falaq - a protection surah',
+      },
+    ],
+    tags: ['quran', 'memorization', 'protection'],
   },
   {
     id: 37,
@@ -195,6 +236,15 @@ Mina al-jinnati wa an-nas
 
 Together, Al-Ikhlas, Al-Falaq, and An-Nas are powerful protection.`,
     reflection: 'You now know 4 surahs! How does that feel?',
+    audio: [
+      {
+        surahNumber: 114,
+        surahName: 'An-Nas',
+        audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6233.mp3',
+        description: 'Listen to An-Nas - protection from whispers',
+      },
+    ],
+    tags: ['quran', 'memorization', 'protection'],
   },
   {
     id: 38,
@@ -269,6 +319,20 @@ Etiquette:
 
 The Prophet ﷺ said Friday contains an hour when all duas are accepted.`,
     reflection: 'Plan your first Jummah. Which mosque will you visit?',
+    resources: [
+      {
+        type: 'mosque_finder',
+        title: 'Find a Mosque Near You',
+        url: 'https://www.islamicfinder.org/world/',
+        description: 'Locate mosques for Jummah prayer',
+      },
+      {
+        type: 'app',
+        title: 'Muslim Pro',
+        url: 'https://www.muslimpro.com/',
+        description: 'Prayer times and mosque locator',
+      },
+    ],
   },
   {
     id: 41,

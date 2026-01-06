@@ -371,6 +371,8 @@ WHAT BREAKS FAST:
 • Intentional vomiting
 • Menstruation/post-birth bleeding`,
     reflection: 'What are you most looking forward to about Ramadan?',
+    isRamadanRelevant: true,
+    tags: ['ramadan', 'fasting', 'sawm'],
   },
   {
     id: 192,
@@ -407,6 +409,8 @@ THOSE EXEMPT:
 
 Consult scholars for your specific situation.`,
     reflection: 'What physical changes do you need to make before Ramadan?',
+    isRamadanRelevant: true,
+    tags: ['ramadan', 'fasting', 'preparation'],
   },
   {
     id: 193,
@@ -442,6 +446,8 @@ THE MINDSET:
 
 "Ramadan is coming, a blessed month..."`,
     reflection: 'What spiritual goals will you set for Ramadan?',
+    isRamadanRelevant: true,
+    tags: ['ramadan', 'spirituality', 'preparation'],
   },
   {
     id: 194,
@@ -471,6 +477,8 @@ HADITH QUDSI:
 
 The reward is unspecified because it's unlimited.`,
     reflection: 'What do you hope to gain from fasting?',
+    isRamadanRelevant: true,
+    tags: ['ramadan', 'fasting', 'sawm'],
   },
   {
     id: 195,
@@ -504,6 +512,8 @@ AT HOME:
 FOR WOMEN:
 Home prayer is better, but mosque is permissible.`,
     reflection: 'Where do you plan to pray Tarawih?',
+    isRamadanRelevant: true,
+    tags: ['ramadan', 'tarawih', 'prayer', 'qiyam'],
   },
   {
     id: 196,
@@ -535,6 +545,16 @@ WITH FAMILY:
 THE SALAF:
 Many completed the Quran multiple times in Ramadan. But any amount is blessed.`,
     reflection: 'What is your Quran goal for Ramadan?',
+    isRamadanRelevant: true,
+    tags: ['ramadan', 'quran', 'recitation'],
+    audio: [
+      {
+        surahNumber: 2,
+        surahName: 'Al-Baqarah (Opening)',
+        audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/8.mp3',
+        description: 'Start your Ramadan reading with Al-Baqarah',
+      },
+    ],
   },
   {
     id: 197,
@@ -564,6 +584,22 @@ Many organizations run Ramadan campaigns. Research and give to trusted ones.
 
 Sadaqah in Ramadan is multiplied in reward.`,
     reflection: 'How will you increase your charity this Ramadan?',
+    isRamadanRelevant: true,
+    tags: ['ramadan', 'charity', 'sadaqah', 'zakat'],
+    resources: [
+      {
+        type: 'website',
+        title: 'Islamic Relief Ramadan',
+        url: 'https://www.islamic-relief.org/',
+        description: 'Donate to Ramadan campaigns worldwide',
+      },
+      {
+        type: 'website',
+        title: 'Penny Appeal',
+        url: 'https://pennyappeal.org/',
+        description: 'Feed the fasting - iftar programs',
+      },
+    ],
   },
   {
     id: 198,
@@ -597,6 +633,8 @@ DUA FOR THIS NIGHT:
 "Allahumma innaka 'afuwwun tuhibbul 'afwa fa'fu 'anni"
 (O Allah, You are Forgiving and love forgiveness, so forgive me)`,
     reflection: 'How will you search for Laylatul Qadr?',
+    isRamadanRelevant: true,
+    tags: ['ramadan', 'laylatul-qadr', 'night-of-power', 'last-ten-nights'],
   },
   {
     id: 199,
@@ -630,6 +668,8 @@ WHAT'S ALLOWED:
 MINI I'TIKAF:
 Even a few hours of dedicated mosque time captures some blessing.`,
     reflection: "Could you do full or partial I'tikaf this Ramadan?",
+    isRamadanRelevant: true,
+    tags: ['ramadan', 'itikaf', 'seclusion', 'last-ten-nights'],
   },
   {
     id: 200,
@@ -664,6 +704,8 @@ CELEBRATION:
 
 It's haram to fast on Eid - it's a day of celebration!`,
     reflection: 'How will you celebrate your Eid?',
+    isRamadanRelevant: true,
+    tags: ['ramadan', 'eid', 'eid-al-fitr', 'celebration'],
   },
 
   // Days 201-230: Voluntary Worship and Extra Acts
@@ -694,6 +736,8 @@ PERPETUAL FASTING:
 
 Start with Mondays and Thursdays, then add more.`,
     reflection: 'Which voluntary fast will you try first?',
+    isRamadanRelevant: true,
+    tags: ['ramadan', 'fasting', 'shawwal', 'voluntary-fasting'],
   },
   {
     id: 202,
@@ -886,6 +930,20 @@ DUA ON ARAFAH:
 
 Make this a day of intense worship, even if you're at work. Take breaks for dua.`,
     reflection: 'How will you spend the Day of Arafah this year?',
+    resources: [
+      {
+        type: 'website',
+        title: 'Hajj Guide - IslamicFinder',
+        url: 'https://www.islamicfinder.org/knowledge/hajj/',
+        description: 'Learn about Hajj and its rituals',
+      },
+      {
+        type: 'website',
+        title: 'Day of Arafah Duas',
+        url: 'https://www.duas.com/dua/day-of-arafah',
+        description: 'Recommended supplications for this blessed day',
+      },
+    ],
   },
   {
     id: 209,

@@ -14,6 +14,20 @@ By saying these words with sincere belief, you have entered Islam. Your past sin
 
 Don't worry about everything you don't know yet. Islam is learned gradually, with patience and compassion for yourself.`,
     reflection: 'How do you feel right now? What hopes do you have for this journey?',
+    resources: [
+      {
+        type: 'website',
+        title: 'New Muslim Academy',
+        url: 'https://newmuslimacademy.org/',
+        description: 'Free courses designed specifically for new Muslims',
+      },
+      {
+        type: 'website',
+        title: 'SeekersGuidance',
+        url: 'https://seekersguidance.org/articles/featured-articles/new-muslims/',
+        description: 'Resources and guidance for new Muslims',
+      },
+    ],
   },
   {
     id: 2,
@@ -128,6 +142,30 @@ This verse begins almost every chapter of the Quran and should begin every actio
 
 Don't worry about memorizing in Arabic immediately. Understanding the meaning is equally important.`,
     reflection: 'What does it mean to begin everything "in the name of Allah"?',
+    audio: [
+      {
+        surahNumber: 1,
+        surahName: 'Al-Fatiha',
+        audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3',
+        description: 'Listen to Al-Fatiha recited by Mishary Alafasy',
+      },
+    ],
+    resources: [
+      {
+        type: 'website',
+        title: 'Quran.com - Al-Fatiha',
+        url: 'https://quran.com/1',
+        description: 'Read Al-Fatiha with multiple translations and tafsir',
+      },
+      {
+        type: 'app',
+        title: 'Tarteel AI',
+        url: 'https://tarteel.ai/',
+        description: 'AI-powered Quran recitation practice',
+      },
+    ],
+    isPrayerRelated: true,
+    tags: ['quran', 'memorization', 'prayer'],
   },
   {
     id: 9,
@@ -149,6 +187,14 @@ Don't worry about memorizing in Arabic immediately. Understanding the meaning is
 
 This is a conversation with Allah. Every prayer is an audience with the Creator.`,
     reflection: 'Which line resonates most with where you are in life?',
+    audio: [
+      {
+        surahNumber: 1,
+        surahName: 'Al-Fatiha',
+        audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3',
+        description: 'Listen to Al-Fatiha - follow along with the meaning above',
+      },
+    ],
   },
   {
     id: 10,
@@ -267,6 +313,8 @@ You won't fast until your first Ramadan (and you can work up to it). But underst
 
 The Prophet ﷺ said: "Whoever fasts Ramadan with faith and seeking reward, all their past sins will be forgiven."`,
     reflection: 'What do you think you would learn about yourself through fasting?',
+    isRamadanRelevant: true,
+    tags: ['ramadan', 'fasting', 'sawm', 'pillars'],
   },
   {
     id: 16,
@@ -290,6 +338,20 @@ The Prophet ﷺ said: "Charity does not decrease wealth."
 
 In fact, wealth that is shared is blessed and grows. What you give returns to you multiplied.`,
     reflection: 'How can you practice generosity this week?',
+    resources: [
+      {
+        type: 'website',
+        title: 'Islamic Relief',
+        url: 'https://www.islamic-relief.org/',
+        description: 'Global Islamic charity for humanitarian aid',
+      },
+      {
+        type: 'website',
+        title: 'LaunchGood',
+        url: 'https://www.launchgood.com/',
+        description: 'Crowdfunding platform for Muslim causes',
+      },
+    ],
   },
   {
     id: 17,

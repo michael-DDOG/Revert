@@ -562,6 +562,8 @@ Different traditions emphasize different fasts. Some people fast the day of Araf
 
 Start manageable - perhaps two days per month, then increase gradually. Avoid exhausting yourself with excessive fasting that affects obligations or health. The Prophet (peace be upon him) advised moderation in all worship.`,
     reflection: 'Which voluntary fast will you try next month?',
+    isRamadanRelevant: true,
+    tags: ['ramadan', 'fasting', 'shaban', 'voluntary-fasting'],
   },
   {
     id: 314,

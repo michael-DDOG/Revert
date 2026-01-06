@@ -14,6 +14,20 @@ Unlike other holy books, the Quran has been perfectly preserved in its original 
 
 The Quran is not just a book to read - it's meant to be recited, pondered, and lived. It contains guidance for every aspect of life, from spiritual matters to practical daily living.`,
     reflection: 'What draws you to want to learn the Quran?',
+    resources: [
+      {
+        type: 'website',
+        title: 'Quran.com',
+        url: 'https://quran.com/',
+        description: 'Read the Quran with translations and tafsir',
+      },
+      {
+        type: 'website',
+        title: 'Bayyinah TV',
+        url: 'https://www.bayyinahtv.com/',
+        description: 'In-depth Quran study with Ustadh Nouman Ali Khan',
+      },
+    ],
   },
   {
     id: 62,
@@ -78,6 +92,20 @@ While translations convey the meaning, they cannot capture the full depth, rhyth
 
 Don't be discouraged - many great Muslims don't speak Arabic. Translations are valid for understanding, and you can gradually learn Quranic Arabic over time.`,
     reflection: 'Have you noticed anything special when hearing the Quran recited in Arabic?',
+    resources: [
+      {
+        type: 'app',
+        title: 'Arabic Quick',
+        url: 'https://apps.apple.com/app/arabic-quick/id1459712308',
+        description: 'Learn Arabic letters and sounds',
+      },
+      {
+        type: 'website',
+        title: 'Quranic Arabic Learning',
+        url: 'https://www.arabicpod101.com/',
+        description: 'Free Arabic lessons online',
+      },
+    ],
   },
   {
     id: 66,
@@ -130,6 +158,14 @@ Some prophets mentioned only in the Quran include Hud, Salih, and Shu'ayb - sent
 
 This Surah is a conversation with Allah. A hadith says Allah responds to each verse when you recite it.`,
     reflection: 'How does understanding Al-Fatiha change how you recite it in prayer?',
+    audio: [
+      {
+        surahNumber: 1,
+        surahName: 'Al-Fatiha',
+        audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3',
+        description: 'Listen to Al-Fatiha recited beautifully by Mishary Alafasy',
+      },
+    ],
   },
   {
     id: 69,
@@ -146,6 +182,14 @@ The Prophet ﷺ said this Surah equals one-third of the Quran because it fully e
 
 It's short enough to memorize quickly, and reciting it in prayer is especially virtuous.`,
     reflection: 'How does this Surah differ from concepts of God you may have known before?',
+    audio: [
+      {
+        surahNumber: 112,
+        surahName: 'Al-Ikhlas',
+        audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6222.mp3',
+        description: 'Listen to Al-Ikhlas - recite along and memorize',
+      },
+    ],
   },
   {
     id: 70,
@@ -157,6 +201,13 @@ It's short enough to memorize quickly, and reciting it in prayer is especially v
 
 Reciting it before sleep brings protection. Reciting it after every prayer leads to Paradise.`,
     reflection: 'Try to memorize at least the first line of Ayatul Kursi this week.',
+    audio: [
+      {
+        surahName: 'Ayatul Kursi',
+        audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/262.mp3',
+        description: 'Listen to Ayatul Kursi (verse 2:255) - the greatest verse',
+      },
+    ],
   },
   {
     id: 71,
@@ -172,6 +223,20 @@ SURAH AN-NAS (114):
 
 The Prophet ﷺ would recite these for protection. Blow them on your palms and wipe over your body before sleep.`,
     reflection: 'What are you seeking protection from in your life right now?',
+    audio: [
+      {
+        surahNumber: 113,
+        surahName: 'Al-Falaq',
+        audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6227.mp3',
+        description: 'Listen to Al-Falaq - seeking refuge in the Lord of daybreak',
+      },
+      {
+        surahNumber: 114,
+        surahName: 'An-Nas',
+        audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6233.mp3',
+        description: 'Listen to An-Nas - seeking refuge in the Lord of mankind',
+      },
+    ],
   },
   {
     id: 72,
@@ -510,6 +575,34 @@ TIME NEEDED:
 
 Even if you don't complete it, every Surah counts.`,
     reflection: 'What Surahs do you already know? What would you like to memorize next?',
+    audio: [
+      {
+        surahNumber: 108,
+        surahName: 'Al-Kawthar',
+        audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6205.mp3',
+        description: 'Start with the shortest surah - Al-Kawthar (3 verses)',
+      },
+      {
+        surahNumber: 110,
+        surahName: 'An-Nasr',
+        audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6210.mp3',
+        description: 'An-Nasr - another short surah for memorization',
+      },
+    ],
+    resources: [
+      {
+        type: 'app',
+        title: 'Tarteel AI',
+        url: 'https://tarteel.ai/',
+        description: 'AI-powered Quran memorization assistant',
+      },
+      {
+        type: 'website',
+        title: 'Quran Companion',
+        url: 'https://qurancompanion.com/',
+        description: 'Structured memorization program',
+      },
+    ],
   },
   {
     id: 88,
